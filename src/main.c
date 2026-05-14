@@ -10,7 +10,15 @@ int main(int argc, char *argv[]) {
       char command[100];
       fgets(command, sizeof (command), stdin);
       command[strlen(command) - 1] = '\0';
-      if (strcmp(command, "exit") == 0) {
+      if (strncmp(command, "type ", 5) == 0) {
+        if(strcmp(command + 5, "echo") == 0 || strcmp(command + 5, "exit") == 0 || strcmp(command + 5, "type") == 0) {
+          printf("%s is a shell builtin\n", command+5);
+        }
+        else {
+          printf("%s: not found\n", command+5);
+        }
+      }
+      else if (strcmp(command, "exit") == 0) {
         break;
       }
       else if (strncmp(command, "echo ", 5) == 0) {
